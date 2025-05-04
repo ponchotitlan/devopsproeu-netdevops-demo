@@ -1,0 +1,13 @@
+<ncs-package xmlns="http://tail-f.com/ns/ncs-packages">
+  <name>devopsproeu-bgp</name>
+  <package-version>1.0.0</package-version>
+  <description>BGP provisioning for DevOpsPro Europe 2025 demo</description>
+  <ncs-min-version>6.4</ncs-min-version>
+
+  <component>
+    <name>main</name>
+    <application>
+      <python-class-name>devopsproeu_bgp.main.Main</python-class-name>
+    </application>
+  </component>
+</ncs-package>

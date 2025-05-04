@@ -1,0 +1,67 @@
+module devopsproeu-bgp {
+
+  namespace "http://devopsproeu.com/devopsproeu-bgp";
+  prefix devopsproeu-bgp;
+
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import tailf-common {
+    prefix tailf;
+  }
+  import tailf-ncs {
+    prefix ncs;
+  }
+
+  description
+    "Example NSO service for BGP provisioning. Demo for DevOpsPro Europe 2025";
+
+  revision 2025-04-05 {
+    description
+      "Initial revision.";
+  }
+
+  list devopsproeu-bgp {
+    description "BGP provisioning";
+    uses ncs:service-data;
+    ncs:servicepoint devopsproeu-bgp-servicepoint;
+
+    key device;
+    leaf device {
+      type leafref {
+        path "/ncs:devices/ncs:device/ncs:name";
+      }
+      description "Target device.";
+    }
+
+    leaf local-as {
+      type uint32;
+      description "Local autonomous system (AS) number.";
+    }
+
+    list neighbors {
+      key "address remote-as";
+      description "List of BGP neighbors.";
+
+      leaf address {
+        type inet:ipv4-address;
+        description "IPv4 address of the BGP neighbor.";
+      }
+
+      leaf remote-as {
+        type uint32;
+        description "Remote autonomous system (AS) number.";
+      }
+
+      list networks {
+        key "prefix";
+        description "Networks to advertise via BGP.";
+
+        leaf prefix {
+          type inet:ipv4-prefix;
+          description "IPv4 prefix to advertise.";
+        }
+      }
+    }
+  }
+}

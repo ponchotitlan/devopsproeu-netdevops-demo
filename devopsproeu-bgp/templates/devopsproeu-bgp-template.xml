@@ -1,0 +1,29 @@
+<config-template xmlns="http://tail-f.com/ns/config/1.0">
+  <devices xmlns="http://tail-f.com/ns/ncs">
+    <device>
+      <name>{$DEVICE}</name>
+      <config>
+        <router xmlns="http://tail-f.com/ned/cisco-ios-xr">
+          <bgp>
+            <bgp-no-instance>
+              <id>{$LOCAL-AS}</id>
+              <address-family>
+                <ipv4>
+                  <unicast>
+                    <network>
+                      <net>{$PREFIX}</net>
+                    </network>
+                  </unicast>
+                </ipv4>
+              </address-family>
+              <neighbor>
+                <id>{$REMOTE-ADRESS}</id>
+                <remote-as>{$REMOTE-AS}</remote-as>
+              </neighbor>
+            </bgp-no-instance>
+          </bgp>
+        </router>
+      </config>
+    </device>
+  </devices>
+</config-template>

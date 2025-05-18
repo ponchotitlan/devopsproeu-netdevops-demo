@@ -25,7 +25,7 @@ jobs:
 
   build-staging-env:
     runs-on: self-hosted
-    needs: check-out
+    needs: inventory-lint
     steps:
     - name: 🛠️ Build staging env
       run: |

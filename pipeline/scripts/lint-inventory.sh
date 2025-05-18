@@ -35,6 +35,7 @@ fi
 
 echo "##### [🗳️] Validating YAML inventory linting .... #####"
 
+pip install yamllint
 lint_yaml_file "$1"
 
 echo "[🗳️] Linting done!"

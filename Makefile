@@ -1,4 +1,7 @@
-.PHONY: run-nso-node load-neds load-packages prepare-test-network run-tests create-artifact-packages create-artifact-tests get-current-release-tag calculate-new-release-tag clean
+.PHONY: lint-inventory run-nso-node load-neds load-packages prepare-test-network run-tests create-artifact-packages create-artifact-tests get-current-release-tag calculate-new-release-tag clean
+
+lint-inventory:
+	@pipeline/scripts/lint-inventory.sh inventory/bgp-inventory.yaml
 
 run-nso-node:
 	@pipeline/scripts/run-nso-node.sh

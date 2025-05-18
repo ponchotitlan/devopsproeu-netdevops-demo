@@ -1,3 +1,4 @@
+---
 data:
   devopsproeu-bgp:devopsproeu-bgp:
     - device: ciscolive-iosxr-dummy-01

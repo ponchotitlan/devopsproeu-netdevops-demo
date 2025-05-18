@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   nso_node:
     container_name: {{ nso.container_name }}
@@ -10,7 +8,7 @@ services:
       - "{{ nso.cli_port }}:1024"
     volumes:
       - type: bind
-        source: ../../packages/
+        source: ../../services/
         target: /nso/run/packages
       - type: bind
         source: ../preconfigs/

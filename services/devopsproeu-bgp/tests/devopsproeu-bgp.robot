@@ -22,7 +22,7 @@ ${url_acl_service}    http://localhost:8080/restconf/data/devopsproeu-bgp:devops
     Log    ${bgp_inventory}
     ${result}    PATCH    ${url_acl_service}    ${bgp_inventory}
     Log    ${result}
-    # Should Be Equal As Strings    ${acl_cdb}    ${acl_expected}
+    Should Be Equal As Strings    ${acl_cdb}    ${acl_expected}
 
 *** Keywords ***
 Set my HTTP Request Header

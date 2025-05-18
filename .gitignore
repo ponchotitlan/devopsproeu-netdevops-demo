@@ -19,7 +19,9 @@ packages/devopsproeu-bgp/load-dir/
 # Ignoring test result files
 packages/devopsproeu-bgp/test/*.html
 packages/devopsproeu-bgp/test/*.html
-packages/devopsproeu-bgp/test/bgp-inventory.json
 
 # Ignoring artifacts in the mounted volume pipeline/preconfigs
 pipeline/preconfigs/*.tar.gz
+
+# Ignoring JSON payload files
+inventory/*.json

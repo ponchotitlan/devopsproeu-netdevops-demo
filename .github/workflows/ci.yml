@@ -21,7 +21,7 @@ jobs:
     steps:
     - name: 🗳️ Lint inventory
       run: |
-        make run-nso-node
+        make lint-inventory
 
   build-staging-env:
     runs-on: self-hosted
@@ -33,15 +33,14 @@ jobs:
         make load-neds
         make load-packages
 
-  # test:
-  #   runs-on: self-hosted
-  #   needs: [set-workflow-options,build]
-  #   if: ${{ needs.set-workflow-options.outputs.RUN_TESTS == 'yes' }}
-  #   steps:
-  #   - name: 🤖 Run tests
-  #     run: |
-  #       make prepare-test-network
-  #       make run-tests
+  test:
+    runs-on: self-hosted
+    needs: build-staging-env
+    steps:
+    - name: 🤖 Run tests
+      run: |
+        make prepare-test-network
+        make run-tests
 
   # deliver-tests:
   #   runs-on: self-hosted

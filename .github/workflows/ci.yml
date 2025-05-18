@@ -1,5 +1,13 @@
 name: DevOpsPro Europe 🤖🇱🇹🇪🇺 Network Services Delivery
 
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+    branches:
+      - '**'
+
 jobs:
   check-out:
     runs-on: self-hosted

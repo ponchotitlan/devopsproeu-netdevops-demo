@@ -28,7 +28,7 @@ for url in $downloads; do
     if [ $? -eq 0 ]; then
         echo "[📦] Download successful: $output_file"
         # Extract the file to the packages/ directory of this repository
-        tar -xvf $output_file -C "packages/"
+        tar -xvf $output_file -C "services/"
         # Removes the tar file from the current directory
         rm -rf $output_file
     else

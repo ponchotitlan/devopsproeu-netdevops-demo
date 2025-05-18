@@ -23,26 +23,15 @@ jobs:
       run: |
         make run-nso-node
 
-    # - name: 🛠️ Build project
-    #   run: |
-    #     make run-nso-node
-    #     make load-neds
-    #     make load-packages
-
-  # deliver-packages:
-  #   runs-on: self-hosted
-  #   needs: [set-workflow-options,build]
-  #   if: ${{ needs.set-workflow-options.outputs.DELIVER_ARTIFACTS == 'yes' }}
-  #   steps:
-  #   - name: 📦 Generate artifacts
-  #     run: |
-  #       make create-artifact-packages
-
-  #   - name: 📦 Upload services artifact
-  #     uses: actions/upload-artifact@v4
-  #     with:
-  #       name: ciscolive_demo_packages
-  #       path: pipeline/preconfigs/ciscolive_demo_packages.tar.gz
+  build-staging-env:
+    runs-on: self-hosted
+    needs: check-out
+    steps:
+    - name: 🛠️ Build staging env
+      run: |
+        make run-nso-node
+        make load-neds
+        make load-packages
 
   # test:
   #   runs-on: self-hosted
@@ -103,10 +92,10 @@ jobs:
   #         asset_name: ciscolive_demo_packages.tar.gz
   #         asset_content_type: application/zip
 
-  # cleanup:
-  #   runs-on: self-hosted
-  #   if: always()
-  #   needs: [build,deliver-packages,test,deliver-tests]
-  #   steps:
-  #   - name: 🧹 Cleanup resources
-  #     run: make clean
+  cleanup:
+    runs-on: self-hosted
+    if: always()
+    needs: [inventory-lint,build-staging-env]
+    steps:
+    - name: 🧹 Cleanup resources
+      run: make clean

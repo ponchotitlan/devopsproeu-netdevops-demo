@@ -8,8 +8,7 @@
 
 # This function creates a tar file of the folder specified and saves it in the /tmp/nso location
 run_robot_test(){
-    local container_name="$1"
-    local service_name="$2"
+    local service_name="$1"
 
     source venv/bin/activate
     robot --outputdir services/$service_name/tests/ services/$service_name/tests/$service_name.robot

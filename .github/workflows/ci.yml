@@ -96,12 +96,12 @@ jobs:
     needs: create-artifact-commit
     if: github.ref == 'refs/heads/main' && needs.test.result == 'success'
     steps:
-      # - name: ⭐️ Get the latest tag
-      #   id: get_latest_tag
-      #   run: make get-current-release-tag
-      # - name: ⭐️ Increment version
-      #   id: increment_version
-      #   run: make calculate-new-release-tag VERSION=${{ env.tag }}
+      - name: ⭐️ Get the latest tag
+        id: get_latest_tag
+        run: make get-current-release-tag
+      - name: ⭐️ Increment version
+        id: increment_version
+        run: make calculate-new-release-tag VERSION=${{ env.tag }}
 
       # - name: ⭐️ Create Release
       #   id: create_release
@@ -129,6 +129,10 @@ jobs:
       - name: ⭐️ Create Release and Upload Assets
         uses: softprops/action-gh-release@v1
         with:
+          name: Release v.${{ env.new_version }}
+          tag_name: ${{ env.new_version }}
+          body: |
+            🏅 Automated Inventory Release v.${{ env.new_version }} 🏅
           files: pipeline/preconfigs/devopsproeu_commit.tar.gz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

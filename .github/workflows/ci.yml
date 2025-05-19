@@ -94,10 +94,10 @@ jobs:
   #         asset_name: ciscolive_demo_packages.tar.gz
   #         asset_content_type: application/zip
 
-  # cleanup:
-  #   runs-on: self-hosted
-  #   if: always()
-  #   needs: [inventory-lint,build-staging-env]
-  #   steps:
-  #   - name: 🧹 Cleanup resources
-  #     run: make clean
+  cleanup:
+    runs-on: self-hosted
+    if: always()
+    needs: test
+    steps:
+    - name: 🧹 Cleanup resources
+      run: make clean

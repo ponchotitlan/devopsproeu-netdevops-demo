@@ -6,7 +6,7 @@
 # Usage:
 #   ./increment-git-tag-version.sh <git_tag>
 
-version=$1
+version=$LATEST_TAG
 # Extract the prefix and numeric part of the version
 prefix=${version%%[0-9]*}
 version_number=${version#"$prefix"}
@@ -15,5 +15,4 @@ IFS='.' read -r -a parts <<< "$version_number"
 ((parts[2]++))
 new_version="${prefix}${parts[0]}.${parts[1]}.${parts[2]}"
 echo "New version: $new_version"
-# Set the output for GitHub Actions
-echo "new_version=$new_version" >> $GITHUB_ENV
+export NEW_VERSION=$new_version

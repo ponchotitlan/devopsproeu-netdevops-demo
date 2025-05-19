@@ -13,4 +13,5 @@ if [ -z "$latest_tag" ]; then
   latest_tag="0.0.1"
 fi
 echo "Latest tag: $latest_tag"
-export LATEST_TAG=$latest_tag
+# Set the output for GitHub Actions
+echo "tag=$latest_tag" >> $GITHUB_ENV

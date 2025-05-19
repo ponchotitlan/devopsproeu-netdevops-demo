@@ -15,4 +15,5 @@ IFS='.' read -r -a parts <<< "$version_number"
 ((parts[2]++))
 new_version="${prefix}${parts[0]}.${parts[1]}.${parts[2]}"
 echo "New version: $new_version"
-export NEW_VERSION=$new_version
+# Set the output for GitHub Actions
+echo "new_version=$new_version" >> $GITHUB_ENV

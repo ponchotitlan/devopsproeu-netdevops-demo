@@ -91,39 +91,39 @@ jobs:
         name: devopsproeu_commit
         path: pipeline/preconfigs/devopsproeu_commit.tar.gz
 
-  # release:
-  #   runs-on: self-hosted
-  #   needs: create-artifact-commit
-  #   if: github.ref == 'refs/heads/main' && needs.test.result == 'success'
-  #   steps:
-  #     - name: ⭐️ Get the latest tag
-  #       id: get_latest_tag
-  #       run: make get-current-release-tag
-  #     - name: ⭐️ Increment version
-  #       id: increment_version
-  #       run: make calculate-new-release-tag VERSION=${{ env.tag }}
-  #     - name: ⭐️ Create Release
-  #       id: create_release
-  #       uses: actions/create-release@v1
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #       with:
-  #         tag_name: ${{ env.new_version }}
-  #         release_name: Release v.${{ env.new_version }}
-  #         body: |
-  #           🏅 Automated Inventory Release v.${{ env.new_version }} 🏅
-  #         draft: false
-  #         prerelease: false
+  release:
+    runs-on: self-hosted
+    needs: create-artifact-commit
+    if: github.ref == 'refs/heads/main' && needs.test.result == 'success'
+    steps:
+      - name: ⭐️ Get the latest tag
+        id: get_latest_tag
+        run: make get-current-release-tag
+      - name: ⭐️ Increment version
+        id: increment_version
+        run: make calculate-new-release-tag VERSION=${{ env.tag }}
+      - name: ⭐️ Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ env.new_version }}
+          release_name: Release v.${{ env.new_version }}
+          body: |
+            🏅 Automated Inventory Release v.${{ env.new_version }} 🏅
+          draft: false
+          prerelease: false
 
-  #     - name: ⭐️ Upload Release Asset
-  #       uses: actions/upload-release-asset@v1
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #       with:
-  #         upload_url: ${{ steps.create_release.outputs.upload_url }}
-  #         asset_path: pipeline/preconfigs/devopsproeu_commit.tar.gz
-  #         asset_name: devopsproeu_commit.tar.gz
-  #         asset_content_type: application/zip
+      - name: ⭐️ Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: pipeline/preconfigs/devopsproeu_commit.tar.gz
+          asset_name: devopsproeu_commit.tar.gz
+          asset_content_type: application/zip
 
   cleanup-staging-env:
     runs-on: self-hosted

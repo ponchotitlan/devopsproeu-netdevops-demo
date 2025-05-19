@@ -14,9 +14,6 @@ echo "##### [🧹] Bringing all staging services down .... #####"
 # Stop all the services of the docker-compose file
 docker compose -f pipeline/setup/docker-compose.yml down
 
-# Remove the rendered docker-compose file
-rm -rf pipeline/setup/docker-compose.yml
-
 # Remove the NEDs from the packages/ folder of this repository
 neds=$(yq "$NEDS_PATH" "$YAML_FILE")
 for ned in $neds; do
@@ -32,6 +29,5 @@ done
 rm -rf pipeline/conf/ssh/
 rm -rf pipeline/conf/ssl/
 rm -rf pipeline/conf/ncs.crypto_keys
-rm -rf venv
 
 echo "[🧹] Clean sweep done!"

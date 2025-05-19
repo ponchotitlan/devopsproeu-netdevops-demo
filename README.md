@@ -89,7 +89,7 @@ In a nutshell, the CICD pipeline follows this approach:
 To make this demo yours, you can simply fork the project into your own repository and then change the files to suit your needs. Once forked, you can download the project to your self-hosted runner by using the following command:
 
 ```
-git clone https://github.com/<your_github_user>/embracing-devops-nso-usecase-lifecycle.git
+git clone https://github.com/<your_github_user>/devopsproeu-netdevops-demo.git
 ```
 
 This demo makes use of python3.x to render the file ```pipeline/setup/docker-compose.js```. It is the only requirement for the self-hosted runner. Navigate to the root dir of this repo and run the following command:

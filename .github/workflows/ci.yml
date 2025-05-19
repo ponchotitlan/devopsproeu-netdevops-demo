@@ -51,6 +51,8 @@ jobs:
     if: always()
     steps:
     - name: 📦 Generate artifacts
+      env:
+        ENVIRONMENT: test
       run: |
         make create-artifact-tests
 
@@ -71,6 +73,23 @@ jobs:
         PROD_AUTH_HASH: ${{ secrets.PROD_AUTH_HASH }}
       run: |
         make run-tests
+
+  create-artifact-commit:
+    runs-on: self-hosted
+    needs: commit
+    if: always()
+    steps:
+    - name: 📦 Generate artifacts
+      env:
+        ENVIRONMENT: production
+      run: |
+        make create-artifact-tests
+
+    - name: 📦 Upload tests artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: devopsproeu_tests
+        path: pipeline/preconfigs/devopsproeu_commit.tar.gz
 
   # release:
   #   runs-on: self-hosted

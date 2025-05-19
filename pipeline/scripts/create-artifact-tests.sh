@@ -11,8 +11,13 @@
 tar_folders(){
     local container_name="$1"
     local tests_array="$@"
-    local ARTIFACT_NAME="devopsproeu_test.tar.gz"
     local ARTIFACT_DIR="/tmp/nso"
+
+    if [[ "$ENVIRONMENT" == "test" ]]; then
+        local ARTIFACT_NAME="devopsproeu_test.tar.gz"
+    else
+        local ARTIFACT_NAME="devopsproeu_commit.tar.gz"
+    fi
 
     docker exec -i $container_name bash -lc "cd /nso/run/packages/ && tar -czvf $ARTIFACT_DIR/$ARTIFACT_NAME ${tests_array[@]}"
 }
@@ -27,7 +32,7 @@ if [ -z "$1" ]; then
     exit 1
 fi
 
-echo "##### [📦] Zipping the test results into an artifact.... #####"
+echo "##### [📦] Zipping the results into an artifact.... #####"
 
 # Extract the name of the container and remove quotes
 CONTAINER_NAME_PATH=".services.$1.container_name"
@@ -60,4 +65,4 @@ done
 
 tar_folders $container_name ${service_tests[@]}
 
-echo "[📦] Creation of the artifact devopsproeu_test.tar.gz done!"
+echo "[📦] Creation of the artifact done!"

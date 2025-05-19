@@ -1,125 +1,347 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 6.1.1 (Python 3.11.9 on linux)" generated="20250504 11:40:03.798" rpa="false" schemaversion="4">
-<suite id="s1" name="Devopsproeu-Bgp" source="/nso/run/packages/devopsproeu-bgp/tests/devopsproeu-bgp.robot">
-<kw name="Set my HTTP Request Header" type="SETUP">
-<doc>Set the headers for NSO REST requests</doc>
+<robot generator="Robot 6.1.1 (Python 3.11.6 on darwin)" generated="20250519 14:03:34.210" rpa="false" schemaversion="4">
+<suite id="s1" name="Devopsproeu-Bgp" source="/Users/alfsando/Documents/devopsproeu-netdevops-demo/services/devopsproeu-bgp/tests/devopsproeu-bgp.robot">
+<kw name="Set RESTCONF Request Parameters" type="SETUP">
+<doc>Set the headers and URLs for the NSO RESTCONF requests</doc>
+<kw name="Set NSO environment">
+<doc>Set the target NSO connectivity details based on the environment type</doc>
+<kw name="Get Environment Variable" library="OperatingSystem">
+<var>${env_value}</var>
+<arg>ENVIRONMENT</arg>
+<arg>test</arg>
+<doc>Returns the value of an environment variable with the given name.</doc>
+<msg timestamp="20250519 14:03:34.396" level="INFO">${env_value} = test</msg>
+<status status="PASS" starttime="20250519 14:03:34.396" endtime="20250519 14:03:34.396"/>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${environment}</arg>
+<arg>${env_value}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<msg timestamp="20250519 14:03:34.396" level="INFO">${environment} = test</msg>
+<status status="PASS" starttime="20250519 14:03:34.396" endtime="20250519 14:03:34.396"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>Current environment - ${environment}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20250519 14:03:34.396" level="INFO">Current environment - test</msg>
+<status status="PASS" starttime="20250519 14:03:34.396" endtime="20250519 14:03:34.396"/>
+</kw>
+<kw name="Get File" library="OperatingSystem">
+<var>${yaml_envs}</var>
+<arg>/Users/alfsando/Documents/devopsproeu-netdevops-demo/services/devopsproeu-bgp/tests/${ENV_FILE}</arg>
+<doc>Returns the contents of a specified file.</doc>
+<msg timestamp="20250519 14:03:34.396" level="INFO" html="true">Getting file '&lt;a href="file:///Users/alfsando/Documents/devopsproeu-netdevops-demo/services/devopsproeu-bgp/tests/environments.yaml"&gt;/Users/alfsando/Documents/devopsproeu-netdevops-demo/services/devopsproeu-bgp/tests/environments.yaml&lt;/a&gt;'.</msg>
+<msg timestamp="20250519 14:03:34.397" level="INFO">${yaml_envs} = environments:
+  test:
+    ip_address: localhost
+    restconf_port: 8080
+
+  production:
+    ip_address: 159.69.56.89
+    restconf_port: 8081</msg>
+<status status="PASS" starttime="20250519 14:03:34.396" endtime="20250519 14:03:34.397"/>
+</kw>
+<kw name="Safe Load" library="yaml">
+<var>${envs}</var>
+<arg>${yaml_envs}</arg>
+<doc>Parse the first YAML document in a stream
+and produce the corresponding Python object.</doc>
+<msg timestamp="20250519 14:03:34.397" level="INFO">${envs} = {'environments': {'test': {'ip_address': 'localhost', 'restconf_port': 8080}, 'production': {'ip_address': '159.69.56.89', 'restconf_port': 8081}}}</msg>
+<status status="PASS" starttime="20250519 14:03:34.397" endtime="20250519 14:03:34.397"/>
+</kw>
+<if>
+<branch type="IF" condition="'${environment}' == 'test'">
+<kw name="Get Environment Variable" library="OperatingSystem">
+<var>${auth_value}</var>
+<arg>TEST_AUTH_HASH</arg>
+<doc>Returns the value of an environment variable with the given name.</doc>
+<msg timestamp="20250519 14:03:34.398" level="INFO">${auth_value} = YWRtaW46YWRtaW4=</msg>
+<status status="PASS" starttime="20250519 14:03:34.398" endtime="20250519 14:03:34.398"/>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${nso_address}</arg>
+<arg>${envs}[environments][test][ip_address]</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<msg timestamp="20250519 14:03:34.398" level="INFO">${nso_address} = localhost</msg>
+<status status="PASS" starttime="20250519 14:03:34.398" endtime="20250519 14:03:34.398"/>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${nso_restconf_port}</arg>
+<arg>${envs}[environments][test][restconf_port]</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<msg timestamp="20250519 14:03:34.398" level="INFO">${nso_restconf_port} = 8080</msg>
+<status status="PASS" starttime="20250519 14:03:34.398" endtime="20250519 14:03:34.398"/>
+</kw>
+<status status="PASS" starttime="20250519 14:03:34.398" endtime="20250519 14:03:34.398"/>
+</branch>
+<branch type="ELSE">
+<kw name="Get Environment Variable" library="OperatingSystem">
+<var>${auth_value}</var>
+<arg>PROD_AUTH_HASH</arg>
+<doc>Returns the value of an environment variable with the given name.</doc>
+<status status="NOT RUN" starttime="20250519 14:03:34.398" endtime="20250519 14:03:34.398"/>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${nso_address}</arg>
+<arg>${envs}[environments][production][ip_address]</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<status status="NOT RUN" starttime="20250519 14:03:34.398" endtime="20250519 14:03:34.398"/>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${nso_restconf_port}</arg>
+<arg>${envs}[environments][production][restconf_port]</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<status status="NOT RUN" starttime="20250519 14:03:34.398" endtime="20250519 14:03:34.398"/>
+</kw>
+<status status="NOT RUN" starttime="20250519 14:03:34.398" endtime="20250519 14:03:34.398"/>
+</branch>
+<status status="PASS" starttime="20250519 14:03:34.398" endtime="20250519 14:03:34.398"/>
+</if>
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${nso_auth}</arg>
+<arg>${auth_value}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<msg timestamp="20250519 14:03:34.398" level="INFO">${nso_auth} = YWRtaW46YWRtaW4=</msg>
+<status status="PASS" starttime="20250519 14:03:34.398" endtime="20250519 14:03:34.398"/>
+</kw>
+<status status="PASS" starttime="20250519 14:03:34.396" endtime="20250519 14:03:34.398"/>
+</kw>
+<kw name="Set RESTCONF URLs">
+<doc>Set the URLs for the NSO RESTCONF requests</doc>
+<kw name="Replace String" library="String">
+<var>${rest_check_replaced}</var>
+<arg>${URL_REST_CHECK}</arg>
+<arg>_ADDRESS_PORT_</arg>
+<arg>${nso_address}:${nso_restconf_port}</arg>
+<doc>Replaces ``search_for`` in the given ``string`` with ``replace_with``.</doc>
+<msg timestamp="20250519 14:03:34.399" level="INFO">${rest_check_replaced} = http://localhost:8080/restconf/</msg>
+<status status="PASS" starttime="20250519 14:03:34.398" endtime="20250519 14:03:34.399"/>
+</kw>
+<kw name="Replace String" library="String">
+<var>${bgp_dryrun_replaced}</var>
+<arg>${URL_BGP_DRYRUN}</arg>
+<arg>_ADDRESS_PORT_</arg>
+<arg>${nso_address}:${nso_restconf_port}</arg>
+<doc>Replaces ``search_for`` in the given ``string`` with ``replace_with``.</doc>
+<msg timestamp="20250519 14:03:34.399" level="INFO">${bgp_dryrun_replaced} = http://localhost:8080/restconf/data?dry-run=native</msg>
+<status status="PASS" starttime="20250519 14:03:34.399" endtime="20250519 14:03:34.399"/>
+</kw>
+<kw name="Replace String" library="String">
+<var>${bgp_commit_replaced}</var>
+<arg>${URL_BGP_COMMIT}</arg>
+<arg>_ADDRESS_PORT_</arg>
+<arg>${nso_address}:${nso_restconf_port}</arg>
+<doc>Replaces ``search_for`` in the given ``string`` with ``replace_with``.</doc>
+<msg timestamp="20250519 14:03:34.399" level="INFO">${bgp_commit_replaced} = http://localhost:8080/restconf/data</msg>
+<status status="PASS" starttime="20250519 14:03:34.399" endtime="20250519 14:03:34.399"/>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${URL_REST_CHECK}</arg>
+<arg>${rest_check_replaced}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<msg timestamp="20250519 14:03:34.399" level="INFO">${URL_REST_CHECK} = http://localhost:8080/restconf/</msg>
+<status status="PASS" starttime="20250519 14:03:34.399" endtime="20250519 14:03:34.399"/>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${URL_BGP_DRYRUN}</arg>
+<arg>${bgp_dryrun_replaced}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<msg timestamp="20250519 14:03:34.399" level="INFO">${URL_BGP_DRYRUN} = http://localhost:8080/restconf/data?dry-run=native</msg>
+<status status="PASS" starttime="20250519 14:03:34.399" endtime="20250519 14:03:34.399"/>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<arg>${URL_BGP_COMMIT}</arg>
+<arg>${bgp_commit_replaced}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<msg timestamp="20250519 14:03:34.399" level="INFO">${URL_BGP_COMMIT} = http://localhost:8080/restconf/data</msg>
+<status status="PASS" starttime="20250519 14:03:34.399" endtime="20250519 14:03:34.399"/>
+</kw>
+<status status="PASS" starttime="20250519 14:03:34.398" endtime="20250519 14:03:34.399"/>
+</kw>
+<kw name="Set RESTCONF Headers">
+<doc>Set the headers for the NSO RESTCONF requests</doc>
 <kw name="Set Headers" library="REST">
-<arg>{ "Authorization": "Basic YWRtaW46YWRtaW4="}</arg>
+<arg>{ "Authorization": "Basic ${nso_auth}"}</arg>
 <tag>settings</tag>
 <doc>*Sets new request headers or updates the existing.*</doc>
-<status status="PASS" starttime="20250504 11:40:03.912" endtime="20250504 11:40:03.912"/>
+<status status="PASS" starttime="20250519 14:03:34.399" endtime="20250519 14:03:34.399"/>
 </kw>
 <kw name="Set Headers" library="REST">
 <arg>{ "Accept": "application/yang-data+json"}</arg>
 <tag>settings</tag>
 <doc>*Sets new request headers or updates the existing.*</doc>
-<status status="PASS" starttime="20250504 11:40:03.912" endtime="20250504 11:40:03.913"/>
+<status status="PASS" starttime="20250519 14:03:34.399" endtime="20250519 14:03:34.399"/>
 </kw>
 <kw name="Set Headers" library="REST">
 <arg>{ "Content-type": "application/yang-data+json"}</arg>
 <tag>settings</tag>
 <doc>*Sets new request headers or updates the existing.*</doc>
-<status status="PASS" starttime="20250504 11:40:03.913" endtime="20250504 11:40:03.913"/>
+<status status="PASS" starttime="20250519 14:03:34.399" endtime="20250519 14:03:34.400"/>
 </kw>
-<status status="PASS" starttime="20250504 11:40:03.912" endtime="20250504 11:40:03.913"/>
+<status status="PASS" starttime="20250519 14:03:34.399" endtime="20250519 14:03:34.400"/>
 </kw>
-<test id="s1-t1" name="⚙ Provision BGP inventory configurations ⚙" line="19">
+<kw name="Set RESTCONF Body">
+<doc>Set the body payload for the NSO RESTCONF requests</doc>
 <kw name="Get File" library="OperatingSystem">
-<var>${bgp_inventory}</var>
-<arg>bgp-inventory.json</arg>
+<var>${bgp_inventory_payload}</var>
+<arg>/Users/alfsando/Documents/devopsproeu-netdevops-demo/services/devopsproeu-bgp/tests/bgp-inventory.json</arg>
 <doc>Returns the contents of a specified file.</doc>
-<msg timestamp="20250504 11:40:03.913" level="INFO" html="true">Getting file '&lt;a href="file:///nso/run/packages/devopsproeu-bgp/tests/bgp-inventory.json"&gt;/nso/run/packages/devopsproeu-bgp/tests/bgp-inventory.json&lt;/a&gt;'.</msg>
-<msg timestamp="20250504 11:40:03.913" level="INFO">${bgp_inventory} = {
-    "data": {
-      "devopsproeu-bgp:devopsproeu-bgp": [
-        {
-          "device": "ciscolive-iosxr-dummy-01",
-          "local-as": 65001,
-          "neighbors": [
-            {
-              "...</msg>
-<status status="PASS" starttime="20250504 11:40:03.913" endtime="20250504 11:40:03.914"/>
+<msg timestamp="20250519 14:03:34.400" level="INFO" html="true">Getting file '&lt;a href="file:///Users/alfsando/Documents/devopsproeu-netdevops-demo/services/devopsproeu-bgp/tests/bgp-inventory.json"&gt;/Users/alfsando/Documents/devopsproeu-netdevops-demo/services/devopsproeu-bgp/tests/bgp-inventory.json&lt;/a&gt;'.</msg>
+<msg timestamp="20250519 14:03:34.400" level="INFO">${bgp_inventory_payload} = {
+  "data": {
+    "devopsproeu-bgp:devopsproeu-bgp": [
+      {
+        "device": "ciscolive-iosxr-dummy-01",
+        "local-as": 65001,
+        "neighbors": [
+          {
+            "address": "192.0...</msg>
+<status status="PASS" starttime="20250519 14:03:34.400" endtime="20250519 14:03:34.400"/>
 </kw>
-<kw name="Log" library="BuiltIn">
+<kw name="Set Suite Variable" library="BuiltIn">
 <arg>${bgp_inventory}</arg>
-<doc>Logs the given message with the given level.</doc>
-<msg timestamp="20250504 11:40:03.914" level="INFO">{
-    "data": {
-      "devopsproeu-bgp:devopsproeu-bgp": [
-        {
-          "device": "ciscolive-iosxr-dummy-01",
-          "local-as": 65001,
-          "neighbors": [
-            {
-              "address": "192.0.2.2",
-              "remote-as": 65002,
-              "networks": [
-                {
-                  "prefix": "192.168.1.0/24"
-                }
-              ]
-            },
-            {
-              "address": "203.0.113.1",
-              "remote-as": 65003,
-              "networks": [
-                {
-                  "prefix": "196.178.1.0/24"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "device": "ciscolive-iosxr-dummy-02",
-          "local-as": 65001,
-          "neighbors": [
-            {
-              "address": "199.0.113.1",
-              "remote-as": 65002,
-              "networks": [
-                {
-                  "prefix": "198.145.1.0/24"
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    }
-  }</msg>
-<status status="PASS" starttime="20250504 11:40:03.914" endtime="20250504 11:40:03.914"/>
+<arg>${bgp_inventory_payload}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<msg timestamp="20250519 14:03:34.400" level="INFO">${bgp_inventory} = {
+  "data": {
+    "devopsproeu-bgp:devopsproeu-bgp": [
+      {
+        "device": "ciscolive-iosxr-dummy-01",
+        "local-as": 65001,
+        "neighbors": [
+          {
+            "address": "192.0...</msg>
+<status status="PASS" starttime="20250519 14:03:34.400" endtime="20250519 14:03:34.400"/>
 </kw>
-<kw name="PATCH" library="REST">
+<status status="PASS" starttime="20250519 14:03:34.400" endtime="20250519 14:03:34.400"/>
+</kw>
+<status status="PASS" starttime="20250519 14:03:34.396" endtime="20250519 14:03:34.400"/>
+</kw>
+<test id="s1-t1" name="🤖 Test RESTCONF reachability to NSO 🤖" line="28">
+<kw name="GET" library="REST">
 <var>${result}</var>
-<arg>${url_acl_service}</arg>
-<arg>${bgp_inventory}</arg>
+<arg>${URL_REST_CHECK}</arg>
 <tag>http</tag>
-<doc>*Sends a PATCH request to the endpoint.*</doc>
-<msg timestamp="20250504 11:40:03.915" level="FAIL">ConnectionError: HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: /restconf/data/devopsproeu-bgp:devopsproeu-bgp (Caused by NewConnectionError('&lt;urllib3.connection.HTTPConnection object at 0xffff8fde4110&gt;: Failed to establish a new connection: [Errno 111] Connection refused'))</msg>
-<status status="FAIL" starttime="20250504 11:40:03.914" endtime="20250504 11:40:03.917"/>
+<doc>*Sends a GET request to the endpoint.*</doc>
+<msg timestamp="20250519 14:03:34.444" level="INFO">${result} = {'seconds': 0.032617, 'status': 200, 'reason': 'OK', 'body': {'ietf-restconf:restconf': {'data': {}, 'operations': {}, 'yang-library-version': '2019-01-04'}}, 'headers': {'Date': 'Mon, 19 May 2025 13:...</msg>
+<status status="PASS" starttime="20250519 14:03:34.401" endtime="20250519 14:03:34.444"/>
 </kw>
 <kw name="Log" library="BuiltIn">
 <arg>${result}</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="NOT RUN" starttime="20250504 11:40:03.917" endtime="20250504 11:40:03.917"/>
+<msg timestamp="20250519 14:03:34.445" level="INFO">{'seconds': 0.032617, 'status': 200, 'reason': 'OK', 'body': {'ietf-restconf:restconf': {'data': {}, 'operations': {}, 'yang-library-version': '2019-01-04'}}, 'headers': {'Date': 'Mon, 19 May 2025 13:03:34 GMT', 'Cache-Control': 'private, no-cache, must-revalidate, proxy-revalidate', 'Content-Length': '90', 'Content-Type': 'application/yang-data+json', 'traceparent': '00-cff636452ca80d7a39e62f2eaedb2ce5-ee82156d6063ff02-01', 'Pragma': 'no-cache', 'Content-Security-Policy': "default-src 'self'; style-src 'self' 'nonce-NSO_STYLE_NONCE'; block-all-mixed-content; base-uri 'self'; frame-ancestors 'none';", 'Cross-Origin-Embedder-Policy': 'require-corp', 'Cross-Origin-Opener-Policy': 'same-origin', 'Strict-Transport-Security': 'max-age=15552000; includeSubDomains', 'X-Content-Type-Options': 'nosniff', 'X-Frame-Options': 'DENY', 'X-XSS-Protection': '1; mode=block'}}</msg>
+<status status="PASS" starttime="20250519 14:03:34.444" endtime="20250519 14:03:34.445"/>
 </kw>
-<doc>⚙ Provision BGP inventory configurations ⚙</doc>
-<status status="FAIL" starttime="20250504 11:40:03.913" endtime="20250504 11:40:03.917">ConnectionError: HTTPConnectionPool(host='localhost', port=8080): Max retries exceeded with url: /restconf/data/devopsproeu-bgp:devopsproeu-bgp (Caused by NewConnectionError('&lt;urllib3.connection.HTTPConnection object at 0xffff8fde4110&gt;: Failed to establish a new connection: [Errno 111] Connection refused'))</status>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<arg>${result}[status]</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<msg timestamp="20250519 14:03:34.445" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<status status="PASS" starttime="20250519 14:03:34.445" endtime="20250519 14:03:34.445"/>
+</kw>
+<doc>Test RESTCONF reachability to NSO</doc>
+<status status="PASS" starttime="20250519 14:03:34.400" endtime="20250519 14:03:34.445"/>
+</test>
+<test id="s1-t2" name="🤖 DRY-RUN - Provision BGP inventory configurations 🤖" line="34">
+<kw name="Log" library="BuiltIn">
+<arg>${URL_BGP_DRYRUN}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20250519 14:03:34.445" level="INFO">http://localhost:8080/restconf/data?dry-run=native</msg>
+<status status="PASS" starttime="20250519 14:03:34.445" endtime="20250519 14:03:34.445"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${bgp_inventory}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20250519 14:03:34.445" level="INFO">{
+  "data": {
+    "devopsproeu-bgp:devopsproeu-bgp": [
+      {
+        "device": "ciscolive-iosxr-dummy-01",
+        "local-as": 65001,
+        "neighbors": [
+          {
+            "address": "192.0.2.2",
+            "remote-as": 65002,
+            "networks": [
+              {
+                "prefix": "192.168.1.0/24"
+              }
+            ]
+          },
+          {
+            "address": "203.0.113.1",
+            "remote-as": 65003,
+            "networks": [
+              {
+                "prefix": "196.178.1.0/24"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "device": "ciscolive-iosxr-dummy-02",
+        "local-as": 65001,
+        "neighbors": [
+          {
+            "address": "199.0.113.1",
+            "remote-as": 65002,
+            "networks": [
+              {
+                "prefix": "198.145.1.0/24"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
+</msg>
+<status status="PASS" starttime="20250519 14:03:34.445" endtime="20250519 14:03:34.445"/>
+</kw>
+<kw name="PATCH" library="REST">
+<var>${result}</var>
+<arg>${URL_BGP_DRYRUN}</arg>
+<arg>${bgp_inventory}</arg>
+<tag>http</tag>
+<doc>*Sends a PATCH request to the endpoint.*</doc>
+<msg timestamp="20250519 14:03:34.711" level="INFO">${result} = {'seconds': 0.25956599999999996, 'status': 200, 'reason': 'OK', 'body': {'dry-run-result': {'native': {'device': [{'name': 'ciscolive-iosxr-dummy-01', 'data': 'router bgp 65001\n address-family ipv4 u...</msg>
+<status status="PASS" starttime="20250519 14:03:34.445" endtime="20250519 14:03:34.711"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>${result}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20250519 14:03:34.711" level="INFO">{'seconds': 0.25956599999999996, 'status': 200, 'reason': 'OK', 'body': {'dry-run-result': {'native': {'device': [{'name': 'ciscolive-iosxr-dummy-01', 'data': 'router bgp 65001\n address-family ipv4 unicast\n  network 192.168.1.0/24\n  network 196.178.1.0/24\n exit\n neighbor 192.0.2.2\n  remote-as 65002\n exit\n neighbor 203.0.113.1\n  remote-as 65003\n exit\nexit\n'}, {'name': 'ciscolive-iosxr-dummy-02', 'data': 'router bgp 65001\n address-family ipv4 unicast\n  network 198.145.1.0/24\n exit\n neighbor 199.0.113.1\n  remote-as 65002\n exit\nexit\n'}]}}}, 'headers': {'Date': 'Mon, 19 May 2025 13:03:34 GMT', 'Last-Modified': 'Mon, 19 May 2025 12:01:56 GMT', 'Cache-Control': 'private, no-cache, must-revalidate, proxy-revalidate', 'Etag': 'W/"1747-656115-996026+json"', 'Content-Length': '493', 'Content-Type': 'application/yang-data+json', 'traceparent': '00-28cb3fa42794642333612049b89f1c0c-649f590eb09b9cf9-01', 'Pragma': 'no-cache', 'Content-Security-Policy': "default-src 'self'; style-src 'self' 'nonce-NSO_STYLE_NONCE'; block-all-mixed-content; base-uri 'self'; frame-ancestors 'none';", 'Cross-Origin-Embedder-Policy': 'require-corp', 'Cross-Origin-Opener-Policy': 'same-origin', 'Strict-Transport-Security': 'max-age=15552000; includeSubDomains', 'X-Content-Type-Options': 'nosniff', 'X-Frame-Options': 'DENY', 'X-XSS-Protection': '1; mode=block'}}</msg>
+<status status="PASS" starttime="20250519 14:03:34.711" endtime="20250519 14:03:34.711"/>
+</kw>
+<kw name="Should Be Equal As Integers" library="BuiltIn">
+<arg>${result}[status]</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<msg timestamp="20250519 14:03:34.711" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<status status="PASS" starttime="20250519 14:03:34.711" endtime="20250519 14:03:34.711"/>
+</kw>
+<doc>DRY-RUN: Provision BGP inventory configurations</doc>
+<status status="PASS" starttime="20250519 14:03:34.445" endtime="20250519 14:03:34.711"/>
 </test>
 <doc>DevOpsPro Europe 2025 🇱🇹🇪🇺 - Testing of BGP inventory provisioning.
 Part of the session "Taming your Data Networks with the Power of NetDevOps"
 Author: @ponchotitlan</doc>
-<status status="FAIL" starttime="20250504 11:40:03.798" endtime="20250504 11:40:03.917"/>
+<status status="PASS" starttime="20250519 14:03:34.211" endtime="20250519 14:03:34.712"/>
 </suite>
 <statistics>
 <total>
-<stat pass="0" fail="1" skip="0">All Tests</stat>
+<stat pass="2" fail="0" skip="0">All Tests</stat>
 </total>
 <tag>
 </tag>
 <suite>
-<stat pass="0" fail="1" skip="0" id="s1" name="Devopsproeu-Bgp">Devopsproeu-Bgp</stat>
+<stat pass="2" fail="0" skip="0" id="s1" name="Devopsproeu-Bgp">Devopsproeu-Bgp</stat>
 </suite>
 </statistics>
 <errors>

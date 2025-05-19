@@ -4,30 +4,22 @@
 # Author: @ponchotitlan
 #
 # Usage:
-#   ./create-artifact-tests.sh <service-name>
+#   ./create-artifact-tests.sh <container_name>
 
 # This function creates a tar file of the folder specified and saves it in the /tmp/nso location
-# Usage tar_folders <container_name(str)> <package_folder_names(array(str))>
 run_robot_test(){
     local container_name="$1"
     local service_name="$2"
 
-    local TOKEN_SUCCESS="0 failed"
-    local output=$(docker exec -i $container_name bash -lc "cd /nso/run/packages/$service_name/tests && robot $service_name.robot")
-
-    if echo "$output" | grep -q "$TOKEN_SUCCESS"; then
-        # This test passed!
-        echo 1
-    else
-        # This test didn't pass!
-        echo 0
-    fi
+    source venv/bin/activate
+    robot --outputdir services/$service_name/tests/ services/$service_name/tests/$service_name.robot
 }
 
 YAML_FILE_CONFIG="pipeline/setup/config.yaml"
 YAML_FILE_DOCKER="pipeline/setup/docker-compose.yml"
-PACKAGES_DIR="packages"
+PACKAGES_DIR="services"
 NEDS_PATH=".netsims | keys"
+TOKEN_SUCCESS="0 failed"
 
 if [ -z "$1" ]; then
     echo "Usage: $0 <container_name> ..."
@@ -59,10 +51,13 @@ for package in "${all_packages[@]}"; do
     done
 
     if [[ $is_ned == 0 ]]; then
-        this_test_pass=$(run_robot_test $container_name $package)
+        test_results=$(run_robot_test $container_name $package)
 
-        # If at least one test didn't pass. This job is declared a failure
-        if [[ $this_test_pass == 0 ]]; then
+        if echo "$test_results" | grep -q "$TOKEN_SUCCESS"; then
+            # This test passed!
+            continue
+        else
+            # This test didn't pass!
             all_tests_passed=0
         fi
     fi

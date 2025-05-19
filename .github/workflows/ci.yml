@@ -38,6 +38,8 @@ jobs:
     needs: build-staging-env
     steps:
     - name: 🤖 Run tests
+      env:
+        TEST_AUTH_HASH: ${{ secrets.TEST_AUTH_HASH }}
       run: |
         make prepare-test-network
         make run-tests

@@ -66,6 +66,8 @@ def render_template(template_dir, template_file, yaml_file, output_extension):
     
     # Render the template with the YAML data
     rendered_content = template.render(yaml_data)
+    rendered_content.replace("{{ test_auth_hash }}","TBD")
+    rendered_content.replace("{{ prod_auth_hash }}","TBD")
     
     # Define the output file path
     base_name, _ = os.path.splitext(template_file)

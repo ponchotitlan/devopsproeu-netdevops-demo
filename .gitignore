@@ -14,14 +14,12 @@ pipeline/utils/__pycache__/
 .DS_Store
 
 # Ignoring package compilation folders
-packages/devopsproeu-bgp/load-dir/
+services/devopsproeu-bgp/load-dir/
 
 # Ignoring test result files
-packages/devopsproeu-bgp/test/*.html
-packages/devopsproeu-bgp/test/*.html
+services/devopsproeu-bgp/tests/*.html
+services/devopsproeu-bgp/tests/*.xml
+services/devopsproeu-bgp/tests/*.json
 
 # Ignoring artifacts in the mounted volume pipeline/preconfigs
 pipeline/preconfigs/*.tar.gz
-
-# Ignoring JSON payload files
-inventory/*.json

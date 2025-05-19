@@ -6,3 +6,6 @@ PyYAML==6.0.2
 tomlkit==0.13.2
 xmltodict==0.14.2
 yq==3.4.3
+robotframework==7.2.2
+RESTinstance==1.3.0
+robotframework-jsonlibrary==0.5

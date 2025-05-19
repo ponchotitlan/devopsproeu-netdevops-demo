@@ -19,7 +19,7 @@ compile_package(){
 
 YAML_FILE_CONFIG="pipeline/setup/config.yaml"
 YAML_FILE_DOCKER="pipeline/setup/docker-compose.yml"
-PACKAGES_DIR="packages"
+PACKAGES_DIR="services"
 NEDS_PATH=".netsims | keys"
 
 if [ -z "$1" ]; then

@@ -20,14 +20,14 @@ prepare-test-network:
 
 run-tests:
 	@pipeline/scripts/install-testing-libraries.sh nso_node
-	@pipeline/scripts/generate-inventory-payload.sh inventory/bgp-inventory.yaml inventory/bgp-inventory.json
-	# status=$$(pipeline/scripts/run-robot-tests.sh nso_node); \
-	# if [ "$$status" = "failed" ]; then \
-	# 	echo "🤖❌ At least one test failed!"; \
-	# 	exit 1; \
-	# else \
-	# 	echo "🤖✅ All tests were successful!"; \
-	# fi
+	@pipeline/scripts/generate-inventory-payload.sh inventory/bgp-inventory.yaml services/devopsproeu-bgp/tests/bgp-inventory.json
+	status=$$(pipeline/scripts/run-robot-tests.sh nso_node test); \
+	if [ "$$status" = "failed" ]; then \
+		echo "🤖❌ At least one test failed!"; \
+		exit 1; \
+	else \
+		echo "🤖✅ All tests were successful!"; \
+	fi
 
 create-artifact-packages:
 	@pipeline/scripts/create-artifact-packages.sh nso_node

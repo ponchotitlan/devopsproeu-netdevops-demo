@@ -8,15 +8,17 @@
 
 # This function creates a tar file of the folder specified and saves it in the /tmp/nso location
 # Usage tar_folders <container_name(str)> <package_folder_names(array(str))>
-tar_folders(){
+tar_folders_test(){
     local container_name="$1"
     local tests_array="$@"
 
-    if [[ "$ENVIRONMENT" == "test" ]]; then
-        docker exec -i $container_name bash -lc "cd /nso/run/packages/ && tar -czvf /tmp/nso/devopsproeu_test.tar.gz ${tests_array[@]}"
-    else
-        tar -czvf pipeline/preconfigs/devopsproeu_commit.tar.gz ${tests_array[@]}
-    fi
+    docker exec -i $container_name bash -lc "cd /nso/run/packages/ && tar -czvf /tmp/nso/devopsproeu_test.tar.gz ${tests_array[@]}"
+}
+
+tar_folders_commit(){
+    local tests_array="$1"
+    
+    tar -czvf pipeline/preconfigs/devopsproeu_commit.tar.gz ${tests_array[@]}
 }
 
 YAML_FILE_CONFIG="pipeline/setup/config.yaml"
@@ -60,6 +62,10 @@ for package in "${all_packages[@]}"; do
     fi
 done
 
-tar_folders $container_name ${service_tests[@]}
+if [[ "$ENVIRONMENT" == "test" ]]; then
+    tar_folders_test $container_name ${service_tests[@]}
+else
+    tar_folders_commit ${service_tests[@]}
+fi
 
 echo "[📦] Creation of the artifact done!"

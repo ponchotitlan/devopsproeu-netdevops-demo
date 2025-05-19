@@ -6,7 +6,7 @@
 # Usage:
 #   ./increment-git-tag-version.sh <git_tag>
 
-version=$LATEST_TAG
+version=$1
 # Extract the prefix and numeric part of the version
 prefix=${version%%[0-9]*}
 version_number=${version#"$prefix"}

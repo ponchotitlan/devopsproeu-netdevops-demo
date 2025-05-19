@@ -11,15 +11,12 @@
 tar_folders(){
     local container_name="$1"
     local tests_array="$@"
-    local ARTIFACT_DIR="/tmp/nso"
 
     if [[ "$ENVIRONMENT" == "test" ]]; then
-        local ARTIFACT_NAME="devopsproeu_test.tar.gz"
+        docker exec -i $container_name bash -lc "cd /nso/run/packages/ && tar -czvf /tmp/nso/devopsproeu_test.tar.gz ${tests_array[@]}"
     else
-        local ARTIFACT_NAME="devopsproeu_commit.tar.gz"
+        tar -czvf pipeline/preconfigs/devopsproeu_commit.tar.gz ${tests_array[@]}
     fi
-
-    docker exec -i $container_name bash -lc "cd /nso/run/packages/ && tar -czvf $ARTIFACT_DIR/$ARTIFACT_NAME ${tests_array[@]}"
 }
 
 YAML_FILE_CONFIG="pipeline/setup/config.yaml"

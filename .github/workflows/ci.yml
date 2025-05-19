@@ -88,13 +88,13 @@ jobs:
     - name: 📦 Upload tests artifact
       uses: actions/upload-artifact@v4
       with:
-        name: devopsproeu_tests
+        name: devopsproeu_commit
         path: pipeline/preconfigs/devopsproeu_commit.tar.gz
 
   # release:
   #   runs-on: self-hosted
-  #   needs: [set-workflow-options,test]
-  #   if: github.ref == 'refs/heads/main' && needs.test.result == 'success' && needs.set-workflow-options.outputs.DELIVER_ARTIFACTS == 'yes'
+  #   needs: create-artifact-commit
+  #   if: github.ref == 'refs/heads/main' && needs.test.result == 'success'
   #   steps:
   #     - name: ⭐️ Get the latest tag
   #       id: get_latest_tag
@@ -111,7 +111,7 @@ jobs:
   #         tag_name: ${{ env.new_version }}
   #         release_name: Release v.${{ env.new_version }}
   #         body: |
-  #           🏅 Automated NSO rfs packages code release v.${{ env.new_version }} 🏅
+  #           🏅 Automated Inventory Release v.${{ env.new_version }} 🏅
   #         draft: false
   #         prerelease: false
 
@@ -121,8 +121,8 @@ jobs:
   #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   #       with:
   #         upload_url: ${{ steps.create_release.outputs.upload_url }}
-  #         asset_path: pipeline/preconfigs/ciscolive_demo_packages.tar.gz
-  #         asset_name: ciscolive_demo_packages.tar.gz
+  #         asset_path: pipeline/preconfigs/devopsproeu_commit.tar.gz
+  #         asset_name: devopsproeu_commit.tar.gz
   #         asset_content_type: application/zip
 
   cleanup-staging-env:

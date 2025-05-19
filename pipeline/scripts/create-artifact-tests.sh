@@ -17,8 +17,8 @@ tar_folders_test(){
 
 tar_folders_commit(){
     local tests_array="$1"
-    
-    tar -czvf pipeline/preconfigs/devopsproeu_commit.tar.gz ${tests_array[@]}
+    cd services/
+    tar -czvf ../pipeline/preconfigs/devopsproeu_commit.tar.gz ${tests_array[@]}
 }
 
 YAML_FILE_CONFIG="pipeline/setup/config.yaml"

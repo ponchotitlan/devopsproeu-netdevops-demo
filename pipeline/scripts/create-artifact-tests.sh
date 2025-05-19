@@ -11,7 +11,7 @@
 tar_folders(){
     local container_name="$1"
     local tests_array="$@"
-    local ARTIFACT_NAME="ciscolive_demo_test.tar.gz"
+    local ARTIFACT_NAME="devopsproeu_test.tar.gz"
     local ARTIFACT_DIR="/tmp/nso"
 
     docker exec -i $container_name bash -lc "cd /nso/run/packages/ && tar -czvf $ARTIFACT_DIR/$ARTIFACT_NAME ${tests_array[@]}"
@@ -19,7 +19,7 @@ tar_folders(){
 
 YAML_FILE_CONFIG="pipeline/setup/config.yaml"
 YAML_FILE_DOCKER="pipeline/setup/docker-compose.yml"
-PACKAGES_DIR="packages"
+PACKAGES_DIR="services"
 NEDS_PATH=".netsims | keys"
 
 if [ -z "$1" ]; then
@@ -60,4 +60,4 @@ done
 
 tar_folders $container_name ${service_tests[@]}
 
-echo "[📦] Creation of the artifact ciscolive_demo_test.tar.gz done!"
+echo "[📦] Creation of the artifact devopsproeu_test.tar.gz done!"

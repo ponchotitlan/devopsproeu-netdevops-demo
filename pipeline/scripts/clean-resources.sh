@@ -32,5 +32,6 @@ done
 rm -rf pipeline/conf/ssh/
 rm -rf pipeline/conf/ssl/
 rm -rf pipeline/conf/ncs.crypto_keys
+rm -rf venv
 
 echo "[🧹] Clean sweep done!"

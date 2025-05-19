@@ -45,20 +45,20 @@ jobs:
         make prepare-test-network
         make run-tests
 
-  # deliver-tests:
-  #   runs-on: self-hosted
-  #   needs: test
-  #   if: always()
-  #   steps:
-  #   - name: 📦 Generate artifacts
-  #     run: |
-  #       make create-artifact-tests
+  deliver-tests:
+    runs-on: self-hosted
+    needs: test
+    if: always()
+    steps:
+    - name: 📦 Generate artifacts
+      run: |
+        make create-artifact-tests
 
-  #   - name: 📦 Upload tests artifact
-  #     uses: actions/upload-artifact@v4
-  #     with:
-  #       name: ciscolive_demo_tests
-  #       path: pipeline/preconfigs/ciscolive_demo_test.tar.gz
+    - name: 📦 Upload tests artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: devopsproeu_tests
+        path: pipeline/preconfigs/devopsproeu_test.tar.gz
 
   # release:
   #   runs-on: self-hosted

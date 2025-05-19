@@ -2,6 +2,16 @@
 data:
   devopsproeu-bgp:devopsproeu-bgp:
     - device: ciscolive-iosxr-dummy-01
+      local-as: 65001
+      neighbors:
+        - address: 192.0.2.2
+          remote-as: 65002
+          networks:
+            - prefix: 192.168.1.0/24
+        - address: 203.0.113.1
+          remote-as: 65003
+          networks:
+            - prefix: 196.178.1.0/24
       local-as: 65005
       neighbors:
         - address: 148.56.89.26
@@ -9,6 +19,12 @@ data:
           networks:
             - prefix: 147.85.96.25/24
     - device: ciscolive-iosxr-dummy-02
+      local-as: 65001
+      neighbors:
+        - address: 199.0.113.1
+          remote-as: 65002
+          networks:
+            - prefix: 198.145.1.0/24
       local-as: 65005
       neighbors:
         - address: 84.56.96.58

@@ -108,7 +108,6 @@ jobs:
 
   cleanup-staging-env:
     runs-on: self-hosted
-    if: always()
     needs: create-artifact-test
     steps:
     - name: 🧹 Cleanup resources

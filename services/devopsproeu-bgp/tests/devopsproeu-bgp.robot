@@ -36,14 +36,13 @@ ${URL_BGP_COMMIT}    http://_ADDRESS_PORT_/restconf/data
     Log    ${URL_BGP_DRYRUN}
     Log    ${bgp_inventory}
     ${result}=    PATCH    ${URL_BGP_DRYRUN}    ${bgp_inventory}
-    # Log    ${result}[body][dry-run-result][native]
-    Log    ${result}
+    Log    ${result}[body][dry-run-result][native]
     Should Be Equal As Integers    ${result}[status]   200
 
-# 🤖 COMMIT - Provision BGP inventory configurations 🤖
-#     [Documentation]    COMMIT: Provision BGP inventory configurations
-#     ${result}=    PATCH    ${URL_BGP_COMMIT}    ${bgp_inventory}
-#     Should Be Equal As Integers    ${result}[status]   204
+🤖 COMMIT - Provision BGP inventory configurations 🤖
+    [Documentation]    COMMIT: Provision BGP inventory configurations
+    ${result}=    PATCH    ${URL_BGP_COMMIT}    ${bgp_inventory}
+    Should Be Equal As Integers    ${result}[status]   204
 
 *** Keywords ***
 Set RESTCONF Request Parameters

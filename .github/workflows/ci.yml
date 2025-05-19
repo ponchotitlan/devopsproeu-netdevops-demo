@@ -96,12 +96,12 @@ jobs:
     needs: create-artifact-commit
     if: github.ref == 'refs/heads/main' && needs.test.result == 'success'
     steps:
-      - name: ⭐️ Get the latest tag
-        id: get_latest_tag
-        run: make get-current-release-tag
-      - name: ⭐️ Increment version
-        id: increment_version
-        run: make calculate-new-release-tag VERSION=${{ env.tag }}
+      # - name: ⭐️ Get the latest tag
+      #   id: get_latest_tag
+      #   run: make get-current-release-tag
+      # - name: ⭐️ Increment version
+      #   id: increment_version
+      #   run: make calculate-new-release-tag VERSION=${{ env.tag }}
 
       # - name: ⭐️ Create Release
       #   id: create_release

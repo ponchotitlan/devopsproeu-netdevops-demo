@@ -4,5 +4,5 @@ environments:
     restconf_port: 8080
 
   production:
-    ip_address: 159.69.56.89
-    restconf_port: 8081
+    ip_address: localhost
+    restconf_port: 8082

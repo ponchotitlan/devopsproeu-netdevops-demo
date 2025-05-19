@@ -19,9 +19,6 @@ PACKAGES_DIR="services"
 NEDS_PATH=".netsims | keys"
 TOKEN_SUCCESS="0 failed"
 
-echo "Environment is $ENVIRONMENT"
-echo "Prod Hash is $PROD_AUTH_HASH"
-
 # Extract the netsim folder names from the YAML file
 ned_packages=$(yq "$NEDS_PATH" "$YAML_FILE_CONFIG")
 

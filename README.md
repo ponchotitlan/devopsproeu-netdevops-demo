@@ -25,11 +25,11 @@ The purpose of this project is to demonstrate a DevOps approach towards **BGP ne
 
 ### Exploring the contents of this repository
 
-[📁 ci.yml](https://github.com/ponchotitlan/devopsproeu-netdevops-demo/blob/main/.github/workflows/ci.yml)
+[📄 ci.yml](https://github.com/ponchotitlan/devopsproeu-netdevops-demo/blob/main/.github/workflows/ci.yml)
 
 This is the definition of the CI pipeline which GitHub will trigger everytime a commit is done to any branch. You can explore the different stages and the scripts invoked on each. Everything is based on bash scripts for ease of runner portability (no need to have anything else than bare Linux) and execution speed.
 
-[📁 inventory/bgp-inventory.yaml](https://github.com/ponchotitlan/devopsproeu-netdevops-demo/blob/main/inventory/bgp-inventory.yaml)
+[📄 inventory/bgp-inventory.yaml](https://github.com/ponchotitlan/devopsproeu-netdevops-demo/blob/main/inventory/bgp-inventory.yaml)
 
 This file contains the BGP configurations in YAML format that we want to have in our data network
 
@@ -41,7 +41,7 @@ All the resources for configuring, running and stopping the pipeline are here. T
 
 Our very basic NSO services for testing purposes. Here you would be versioning your real-life, way more complex service packages.
 
-[📁 services/tests/environments.yaml](https://github.com/ponchotitlan/devopsproeu-netdevops-demo/blob/main/services/devopsproeu-bgp/tests/environments.yaml)
+[📄 services/tests/environments.yaml](https://github.com/ponchotitlan/devopsproeu-netdevops-demo/blob/main/services/devopsproeu-bgp/tests/environments.yaml)
 
 Every service contains its own ```tests/``` folder for its corresponding Robot test suite, as well as the definition of its environments for testing and provisoning. There must be at least two environments for the purpose of this demo: ```test``` and ```production```.
 

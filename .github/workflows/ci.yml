@@ -97,7 +97,7 @@ jobs:
   cleanup:
     runs-on: self-hosted
     if: always()
-    needs: test
+    needs: deliver-tests
     steps:
     - name: 🧹 Cleanup resources
       run: make clean

@@ -45,7 +45,7 @@ jobs:
         make prepare-test-network
         make run-tests
 
-  deliver-tests:
+  create-artifact-test:
     runs-on: self-hosted
     needs: test
     if: always()
@@ -59,6 +59,18 @@ jobs:
       with:
         name: devopsproeu_tests
         path: pipeline/preconfigs/devopsproeu_test.tar.gz
+
+  commit:
+    runs-on: self-hosted
+    needs: create-artifact-test
+    if: github.ref == 'refs/heads/main' && needs.test.result == 'success'
+    steps:
+    - name: ⚡️ Commit inventory changes
+      env:
+        ENVIRONMENT: production
+        PROD_AUTH_HASH: ${{ secrets.PROD_AUTH_HASH }}
+      run: |
+        make run-tests
 
   # release:
   #   runs-on: self-hosted

@@ -12,6 +12,10 @@ data:
           remote-as: 65003
           networks:
             - prefix: 196.178.1.0/24
+        - address: 145.69.58.36
+          remote-as: 65008
+          networks:
+            - prefix: 78.58.69.3/24
     - device: ciscolive-iosxr-dummy-02
       local-as: 65001
       neighbors:

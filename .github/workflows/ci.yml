@@ -77,7 +77,6 @@ jobs:
   create-artifact-commit:
     runs-on: self-hosted
     needs: commit
-    if: always()
     steps:
     - name: 📦 Generate artifacts
       env:

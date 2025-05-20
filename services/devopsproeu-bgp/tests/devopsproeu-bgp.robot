@@ -36,7 +36,8 @@ ${URL_BGP_COMMIT}    http://_ADDRESS_PORT_/restconf/data
     Log    ${URL_BGP_DRYRUN}
     Log    ${bgp_inventory}
     ${result}=    PATCH    ${URL_BGP_DRYRUN}    ${bgp_inventory}
-    Log    ${result}[body][dry-run-result][native]
+    Log    Full body - ${result}
+    Log    Dry-run Native Payload - ${result}[body][dry-run-result][native]
     Should Be Equal As Integers    ${result}[status]   200
 
 🤖 COMMIT - Provision BGP inventory configurations 🤖
